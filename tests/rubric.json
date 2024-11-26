@@ -1,0 +1,55 @@
+{
+    "test_imports": {
+        "weight": "required",
+        "depends": []
+    },
+    "test_setup": {
+      "weight": "required",
+      "depends": []
+    },
+    "test_default_2x2": {
+      "weight": 1,
+      "depends": []
+    },
+    "test_calculate_mu": {
+      "weight": 1,
+      "depends": []
+    },
+    "test_calculate_J": {
+      "weight": 1,
+      "depends": []
+    },
+    "test_ising_potential1": {
+      "weight": 1,
+      "depends": []
+    },
+    "test_ising_potential2": {
+      "weight": 1,
+      "depends": ["test_ising_potential1"]
+    },
+    "test_ising_potential3": {
+      "weight": 1,
+      "depends": ["test_default_2x2", "test_ising_potential2"]
+    },
+    "test_potts_potential1": {
+      "weight": 1,
+      "depends": ["test_default_2x2", "test_ising_potential3"]
+    },
+    "test_gibbs_sampling": {
+      "weight": 1,
+      "depends": ["test_ising_potential3"]
+    },
+    "test_gibbs_expected_image": {
+      "weight": 1,
+      "depends": ["test_gibbs_expected_image"]
+    },
+    "test_gibbs_denoises": {
+      "weight": 1,
+      "depends": ["test_gibbs_sampling", "test_gibbs_expected_image"]
+    },
+    "test_em": {
+      "weight": 1,
+      "depends": ["test_gibbs_sampling", "test_gibbs_expected_image",
+                  "test_calculate_mu", "test_calculate_J"]
+    }
+}
