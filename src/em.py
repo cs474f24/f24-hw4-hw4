@@ -16,7 +16,8 @@ def run_em(noisy_arr, n_colors=2, n_em_iters=10, n_gibbs_iters=10, burnin=5,
         samples: a list of `n_em_iters` 2D arrays, where each array represents
                  the image after one iteration of the EM algorithm.
         extra_info: a dictionary you can use for debugging and experimentation.
-                 This will be ignored by all test cases.
+                    You need to keep the gibbs_samples, J, mu arguments as they
+                    are for tests/test_em, but you can add other information.
     """
 
     start = time.time()

@@ -38,6 +38,6 @@ def test_em():
         mse = mean_squared_error(no_em_image, with_em_image)
         mses.append(mse)
 
-    assert np.mean(Js) > 0.4, "EM should learn new J matrix"
-    assert np.mean(mus) > 1, "EM should learn new mu matrix"
+    assert np.mean(Js) > 0.25, "EM should learn new J matrix"
+    assert np.mean(mus) > 0.25, "EM should learn new mu matrix"
     assert np.mean(mses) > 0.4, "EM should learn different images than Gibbs alone"

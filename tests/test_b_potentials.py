@@ -111,9 +111,9 @@ def test_ising_potential2():
 
         # mu is constant; neighbors are tied
         test = ising_potential(bin_arr, 1, 1, orig, J=epi, mu=ones)
-        assert test[orig] == test[1 - orig]
+        assert np.isclose(test[orig], test[1 - orig])
         test = ising_potential(bin_arr, 1, 1, orig, J=epi, mu=zeros)
-        assert test[orig] == test[1 - orig]
+        assert np.isclose(test[orig],test[1 - orig])
 
         # neither constant; orig breaks tie
         test = ising_potential(bin_arr, 1, 1, orig, J=epi, mu=epi)
@@ -124,12 +124,10 @@ def test_ising_potential2():
     # Look at the center-left pixel bin_arr[1, 0]
     # If mu = epi, and orig = 0, the potentials are tied
     test = ising_potential(bin_arr, 1, 0, 0, J=epi, mu=epi)
-    assert np.all(test == 0.5)
+    assert np.all(np.isclose(test, 0.5))
     # If mu = epi, and orig = 1, then 1 becomes much more likely
     test = ising_potential(bin_arr, 1, 0, 1, J=epi, mu=epi)
     assert test[1] > test[0]
-
-    return
 
 
 def test_ising_potential3():
@@ -141,25 +139,25 @@ def test_ising_potential3():
     # Test center pixel
     pot11_orig1 = ising_potential(bin_arr, 1, 1, 1, J=J, mu=mu)
     pot11_orig0 = ising_potential(bin_arr, 1, 1, 0, J=J, mu=mu)
-    assert pot11_orig1[1] == pot11_orig0[0]
-    assert pot11_orig1[0] == pot11_orig0[1]
+    assert np.isclose(pot11_orig1[1], pot11_orig0[0])
+    assert np.isclose(pot11_orig1[0], pot11_orig0[1])
 
     # Test center-left and center-right
     pot10_orig0 = ising_potential(bin_arr, 1, 0, 0, J=J, mu=mu)
     pot12_orig0 = ising_potential(bin_arr, 1, 2, 0, J=J, mu=mu)
-    assert np.all(pot10_orig0 == pot12_orig0)
+    assert np.all(np.isclose(pot10_orig0, pot12_orig0))
     # Use same matrix for J and mu
     test = ising_potential(bin_arr, 1, 0, 0, J=J, mu=J)
-    assert np.all(test == [0.5, 0.5])
+    assert np.all(np.isclose(test, [0.5, 0.5]))
     test = ising_potential(bin_arr, 1, 0, 0, J=mu, mu=mu)
-    assert np.all(test == [0.5, 0.5])
+    assert np.all(np.isclose(test, [0.5, 0.5]))
 
     # Test corners
     pot00_orig1 = ising_potential(bin_arr, 0, 0, 1, J=J, mu=mu)
     pot22_orig0 = ising_potential(bin_arr, 2, 2, 0, J=J, mu=mu)
-    assert pot00_orig1[1] == pot22_orig0[0]
-    assert pot00_orig1[1] == pot22_orig0[0]
-    assert pot00_orig1[0] == pot22_orig0[1]
+    assert np.isclose(pot00_orig1[1], pot22_orig0[0])
+    assert np.isclose(pot00_orig1[1], pot22_orig0[0])
+    assert np.isclose(pot00_orig1[0], pot22_orig0[1])
 
     # All zeros image; mu should not dominate J
     zeros = np.zeros([3, 3], dtype=int)
